@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Routes, Route as ReactRoute } from 'react-router-dom'; // Import Routes and Route as ReactRoute
+
 import ApiComponent from './ApiComponent';
 import DisplayActivities from './DisplayActivities';
 
@@ -8,9 +9,11 @@ import './App.css';
 function Home() {
     return (
         <div>
-            <h1>Health Tracking App</h1>
+        <h1>Health Tracking App</h1>
+        <button>
             <Link to="/record">Record Health Data</Link>
-        </div>
+        </button>
+    </div>
     );
 }
 
@@ -43,11 +46,11 @@ function App() {
     return (
         <Router>
             <div className="App">
-                <Switch>
-                    <Route path="/" exact component={Home} />
-                    <Route path="/record" component={ApiComponent} />
-                    <Route path="/activities/:userId" component={DisplayActivities} />
-                </Switch>
+                <Routes>
+                    <ReactRoute path="/" element={<Home />} />
+                    <ReactRoute path="/record" element={<ApiComponent />} />
+                    <ReactRoute path="/activities/:userId" element={<DisplayActivities />} />
+                </Routes>
                 <button onClick={recordHealthData}>Record Health Data</button>
                 {healthData.date && (
                     <div>

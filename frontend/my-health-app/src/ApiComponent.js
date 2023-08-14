@@ -7,6 +7,7 @@ function ApiComponent() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [userRegistered, setUserRegistered] = useState(false);
+  const [userId, setUserId] = useState(null); // Initialize userId state
 
   const handleRegister = async () => {
     try {
