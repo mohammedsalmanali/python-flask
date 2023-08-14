@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import ApiComponent from './ApiComponent';
+import DisplayActivities from './DisplayActivities';
+
 import './App.css';
+
+function Home() {
+    return (
+        <div>
+            <h1>Health Tracking App</h1>
+            <Link to="/record">Record Health Data</Link>
+        </div>
+    );
+}
 
 function App() {
     const [healthData, setHealthData] = useState({});
@@ -28,18 +41,24 @@ function App() {
     };
 
     return (
-        <div className="App">
-            <h1>Health Tracking App</h1>
-            <button onClick={recordHealthData}>Record Health Data</button>
-            {healthData.date && (
-                <div>
-                    <h2>Recorded Health Data:</h2>
-                    <p>Date: {healthData.date}</p>
-                    <p>Exercise: {healthData.exercise}</p>
-                    <p>Calories: {healthData.calories}</p>
-                </div>
-            )}
-        </div>
+        <Router>
+            <div className="App">
+                <Switch>
+                    <Route path="/" exact component={Home} />
+                    <Route path="/record" component={ApiComponent} />
+                    <Route path="/activities/:userId" component={DisplayActivities} />
+                </Switch>
+                <button onClick={recordHealthData}>Record Health Data</button>
+                {healthData.date && (
+                    <div>
+                        <h2>Recorded Health Data:</h2>
+                        <p>Date: {healthData.date}</p>
+                        <p>Exercise: {healthData.exercise}</p>
+                        <p>Calories: {healthData.calories}</p>
+                    </div>
+                )}
+            </div>
+        </Router>
     );
 }
 
